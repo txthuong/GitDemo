@@ -1,0 +1,100 @@
+2022-11-08 07:01:02,323 : INFO: test_formSubmission: Running with name:Truong
+2022-11-08 07:01:02,638 : INFO: test_formSubmission: ×
+Success! The Form has been submitted successfully!.
+2022-11-08 07:01:02,970 : INFO: test_formSubmission: Running with name:Thuong
+2022-11-08 07:01:02,970 : INFO: test_formSubmission: Running with name:Thuong
+2022-11-08 07:01:03,263 : INFO: test_formSubmission: ×
+Success! The Form has been submitted successfully!.
+2022-11-08 07:01:03,263 : INFO: test_formSubmission: ×
+Success! The Form has been submitted successfully!.
+2022-11-08 07:01:26,637 : INFO: test_e2e: Getting all the card titles.
+2022-11-08 07:01:26,684 : INFO: test_e2e: iphone X
+2022-11-08 07:01:26,719 : INFO: test_e2e: iphone X added !!!
+2022-11-08 07:01:26,739 : INFO: test_e2e: Samsung Note 8
+2022-11-08 07:01:26,758 : INFO: test_e2e: Nokia Edge
+2022-11-08 07:01:26,782 : INFO: test_e2e: Blackberry
+2022-11-08 07:01:26,812 : INFO: test_e2e: Blackberry added !!!
+2022-11-08 07:01:26,894 : INFO: test_e2e: Enter country name.
+2022-11-08 07:01:32,126 : INFO: test_e2e: Text received: ×
+Success! Thank you! Your order will be delivered in next few weeks :-).
+2022-11-08 07:03:22,938 : INFO: test_formSubmission: Running with name:Truong
+2022-11-08 07:03:23,232 : INFO: test_formSubmission: ×
+Success! The Form has been submitted successfully!.
+2022-11-08 07:03:23,557 : INFO: test_formSubmission: Running with name:Thuong
+2022-11-08 07:03:23,557 : INFO: test_formSubmission: Running with name:Thuong
+2022-11-08 07:03:23,852 : INFO: test_formSubmission: ×
+Success! The Form has been submitted successfully!.
+2022-11-08 07:03:23,852 : INFO: test_formSubmission: ×
+Success! The Form has been submitted successfully!.
+2022-11-08 07:03:47,288 : INFO: test_e2e: Getting all the card titles.
+2022-11-08 07:03:47,323 : INFO: test_e2e: iphone X
+2022-11-08 07:03:47,356 : INFO: test_e2e: iphone X added !!!
+2022-11-08 07:03:47,376 : INFO: test_e2e: Samsung Note 8
+2022-11-08 07:03:47,396 : INFO: test_e2e: Nokia Edge
+2022-11-08 07:03:47,419 : INFO: test_e2e: Blackberry
+2022-11-08 07:03:47,452 : INFO: test_e2e: Blackberry added !!!
+2022-11-08 07:03:47,537 : INFO: test_e2e: Enter country name.
+2022-11-08 07:03:52,801 : INFO: test_e2e: Text received: ×
+Success! Thank you! Your order will be delivered in next few weeks :-).
+2022-11-09 20:52:00,665 : INFO: test_formSubmission: Running with name:Truong
+2022-11-09 20:52:01,200 : INFO: test_formSubmission: ×
+Success! The Form has been submitted successfully!.
+2022-11-09 20:52:01,534 : INFO: test_formSubmission: Running with name:Thuong
+2022-11-09 20:52:01,534 : INFO: test_formSubmission: Running with name:Thuong
+2022-11-09 20:52:01,873 : INFO: test_formSubmission: ×
+Success! The Form has been submitted successfully!.
+2022-11-09 20:52:01,873 : INFO: test_formSubmission: ×
+Success! The Form has been submitted successfully!.
+2022-11-09 20:52:09,452 : INFO: test_e2e: Getting all the card titles.
+2022-11-09 20:52:09,491 : INFO: test_e2e: iphone X
+2022-11-09 20:52:09,527 : INFO: test_e2e: iphone X added !!!
+2022-11-09 20:52:09,547 : INFO: test_e2e: Samsung Note 8
+2022-11-09 20:52:09,568 : INFO: test_e2e: Nokia Edge
+2022-11-09 20:52:09,597 : INFO: test_e2e: Blackberry
+2022-11-09 20:52:09,632 : INFO: test_e2e: Blackberry added !!!
+2022-11-09 20:52:09,727 : INFO: test_e2e: Enter country name.
+2022-11-09 20:52:15,015 : INFO: test_e2e: Text received: ×
+Success! Thank you! Your order will be delivered in next few weeks :-).
+2022-11-09 20:58:02,188 : INFO: test_formSubmission: Running with name:Truong
+2022-11-09 20:58:02,715 : INFO: test_formSubmission: ×
+Success! The Form has been submitted successfully!.
+2022-11-09 20:58:03,046 : INFO: test_formSubmission: Running with name:Thuong
+2022-11-09 20:58:03,046 : INFO: test_formSubmission: Running with name:Thuong
+2022-11-09 20:58:03,398 : INFO: test_formSubmission: ×
+Success! The Form has been submitted successfully!.
+2022-11-09 20:58:03,398 : INFO: test_formSubmission: ×
+Success! The Form has been submitted successfully!.
+2022-11-09 20:58:26,738 : INFO: test_e2e: Getting all the card titles.
+2022-11-09 20:58:26,772 : INFO: test_e2e: iphone X
+2022-11-09 20:58:26,809 : INFO: test_e2e: iphone X added !!!
+2022-11-09 20:58:26,829 : INFO: test_e2e: Samsung Note 8
+2022-11-09 20:58:26,849 : INFO: test_e2e: Nokia Edge
+2022-11-09 20:58:26,875 : INFO: test_e2e: Blackberry
+2022-11-09 20:58:26,909 : INFO: test_e2e: Blackberry added !!!
+2022-11-09 20:58:27,004 : INFO: test_e2e: Enter country name.
+2022-11-09 20:58:32,287 : INFO: test_e2e: Text received: ×
+Success! Thank you! Your order will be delivered in next few weeks :-).
+2022-11-09 21:16:58,468 : INFO: test_formSubmission: Running with name:Truong
+2022-11-09 21:16:58,783 : INFO: test_formSubmission: ×
+Success! The Form has been submitted successfully!.
+2022-11-09 21:16:59,119 : INFO: test_formSubmission: Running with name:Thuong
+2022-11-09 21:16:59,119 : INFO: test_formSubmission: Running with name:Thuong
+2022-11-09 21:16:59,417 : INFO: test_formSubmission: ×
+Success! The Form has been submitted successfully!.
+2022-11-09 21:16:59,417 : INFO: test_formSubmission: ×
+Success! The Form has been submitted successfully!.
+2022-11-09 21:17:23,640 : INFO: test_e2e: Getting all the card titles.
+2022-11-09 21:17:23,676 : INFO: test_e2e: iphone X
+2022-11-09 21:17:23,715 : INFO: test_e2e: iphone X added !!!
+2022-11-09 21:17:23,737 : INFO: test_e2e: Samsung Note 8
+2022-11-09 21:17:23,764 : INFO: test_e2e: Nokia Edge
+2022-11-09 21:17:23,785 : INFO: test_e2e: Blackberry
+2022-11-09 21:17:23,821 : INFO: test_e2e: Blackberry added !!!
+2022-11-09 21:17:23,920 : INFO: test_e2e: Enter country name.
+2022-11-09 21:17:29,206 : INFO: test_e2e: Text received: ×
+Success! Thank you! Your order will be delivered in next few weeks :-).
+2022-11-10 06:26:36,271 : INFO: test_formSubmission: Running with name:Thuong
+2022-11-10 06:27:04,823 : INFO: test_formSubmission: Running with name:Thuong
+2022-11-10 06:28:27,083 : INFO: test_formSubmission: Running with name:Thuong
+2022-11-10 06:28:27,434 : INFO: test_formSubmission: ×
+Success! The Form has been submitted successfully!.

@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="3" failures="0" skipped="0" tests="3" time="7.491" timestamp="2022-11-09T21:19:57.131899" hostname="DESKTOP-5SO6SE4"><testcase classname="test_HomePage.TestHomePage" name="test_formSubmission[get_data0]" time="4.046"><error message="failed on setup with &quot;selenium.common.exceptions.SessionNotCreatedException: Message: session not created: This version of Microsoft Edge WebDriver only supports Microsoft Edge version 105&#10;Current browser version is 107.0.1418.35 with binary path C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe&#10;Stacktrace:&#10;Backtrace:&#10;&#09;Microsoft::Applications::Events::EventProperties::SetProperty [0x00007FF644D323D2+17554]&#10;&#09;Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644CCED22+1438834]&#10;&#09;Ordinal0 [0x00007FF6448F9345+627525]&#10;&#09;Ordinal0 [0x00007FF6449273D4+816084]&#10;&#09;Ordinal0 [0x00007FF6449228B3+796851]&#10;&#09;Ordinal0 [0x00007FF64491D9F0+776688]&#10;&#09;Ordinal0 [0x00007FF64495969F+1021599]&#10;&#09;Ordinal0 [0x00007FF644953A43+997955]&#10;&#09;Ordinal0 [0x00007FF6449294C0+824512]&#10;&#09;Ordinal0 [0x00007FF64492A9F8+829944]&#10;&#09;Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644B90578+134344]&#10;&#09;Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644B79EA5+42485]&#10;&#09;Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644B7CF8C+55004]&#10;&#09;Ordinal0 [0x00007FF6449E2E94+1584788]&#10;&#09;Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644CD446B+1461179]&#10;&#09;Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644CD8434+1477508]&#10;&#09;Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644CD858D+1477853]&#10;&#09;Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644CE0559+1510569]&#10;&#09;BaseThreadInitThunk [0x00007FF9E1CC7034+20]&#10;&#09;RtlUserThreadStart [0x00007FF9E37826A1+33]&quot;">request = &lt;SubRequest 'setup' for &lt;Function test_formSubmission[get_data0]&gt;&gt;
+
+    @pytest.fixture(scope="class")
+    def setup(request):
+        browser_name = request.config.getoption("browser_name")
+        if browser_name == "chrome":
+            service_obj = Service("D:\\Course\\Selenium\\Drivers\\chromedriver.exe")
+            chrome_options = webdriver.ChromeOptions()
+            chrome_options.add_argument("--start-maximized")
+            driver = webdriver.Chrome(service=service_obj, options=chrome_options)
+        elif browser_name == "firefox":
+            service_obj = Service("D:\\Course\\Selenium\\Drivers\\geckodriver.exe")
+            firefox_options = webdriver.FirefoxOptions()
+            firefox_options.add_argument("--start-maximized")
+            driver = webdriver.Firefox(service=service_obj, options=firefox_options)
+        elif browser_name == "IE":
+            service_obj = Service("D:\\Course\\Selenium\\Drivers\\msedgedriver.exe")
+            ie_options = webdriver.EdgeOptions()
+            ie_options.add_argument("--start-maximized")
+&gt;           driver = webdriver.Edge(service=service_obj, options=ie_options)
+
+conftest.py:31: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Python\Python310\lib\site-packages\selenium\webdriver\edge\webdriver.py:61: in __init__
+    super().__init__(DesiredCapabilities.EDGE['browserName'], "ms",
+C:\Python\Python310\lib\site-packages\selenium\webdriver\chromium\webdriver.py:92: in __init__
+    super().__init__(
+C:\Python\Python310\lib\site-packages\selenium\webdriver\remote\webdriver.py:272: in __init__
+    self.start_session(capabilities, browser_profile)
+C:\Python\Python310\lib\site-packages\selenium\webdriver\remote\webdriver.py:364: in start_session
+    response = self.execute(Command.NEW_SESSION, parameters)
+C:\Python\Python310\lib\site-packages\selenium\webdriver\remote\webdriver.py:429: in execute
+    self.error_handler.check_response(response)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;selenium.webdriver.remote.errorhandler.ErrorHandler object at 0x0000022E08B93610&gt;
+response = {'status': 500, 'value': '{"value":{"error":"session not created","message":"session not created: This version of Micr...E0559+1510569]\\n\\tBaseThreadInitThunk [0x00007FF9E1CC7034+20]\\n\\tRtlUserThreadStart [0x00007FF9E37826A1+33]\\n"}}'}
+
+    def check_response(self, response: Dict[str, Any]) -&gt; None:
+        """
+        Checks that a JSON response from the WebDriver does not have an error.
+    
+        :Args:
+         - response - The JSON response from the WebDriver server as a dictionary
+           object.
+    
+        :Raises: If the response contains an error message.
+        """
+        status = response.get('status', None)
+        if not status or status == ErrorCode.SUCCESS:
+            return
+        value = None
+        message = response.get("message", "")
+        screen: str = response.get("screen", "")
+        stacktrace = None
+        if isinstance(status, int):
+            value_json = response.get('value', None)
+            if value_json and isinstance(value_json, str):
+                import json
+                try:
+                    value = json.loads(value_json)
+                    if len(value.keys()) == 1:
+                        value = value['value']
+                    status = value.get('error', None)
+                    if not status:
+                        status = value.get("status", ErrorCode.UNKNOWN_ERROR)
+                        message = value.get("value") or value.get("message")
+                        if not isinstance(message, str):
+                            value = message
+                            message = message.get('message')
+                    else:
+                        message = value.get('message', None)
+                except ValueError:
+                    pass
+    
+        exception_class: Type[WebDriverException]
+        if status in ErrorCode.NO_SUCH_ELEMENT:
+            exception_class = NoSuchElementException
+        elif status in ErrorCode.NO_SUCH_FRAME:
+            exception_class = NoSuchFrameException
+        elif status in ErrorCode.NO_SUCH_SHADOW_ROOT:
+            exception_class = NoSuchShadowRootException
+        elif status in ErrorCode.NO_SUCH_WINDOW:
+            exception_class = NoSuchWindowException
+        elif status in ErrorCode.STALE_ELEMENT_REFERENCE:
+            exception_class = StaleElementReferenceException
+        elif status in ErrorCode.ELEMENT_NOT_VISIBLE:
+            exception_class = ElementNotVisibleException
+        elif status in ErrorCode.INVALID_ELEMENT_STATE:
+            exception_class = InvalidElementStateException
+        elif status in ErrorCode.INVALID_SELECTOR \
+                or status in ErrorCode.INVALID_XPATH_SELECTOR \
+                or status in ErrorCode.INVALID_XPATH_SELECTOR_RETURN_TYPER:
+            exception_class = InvalidSelectorException
+        elif status in ErrorCode.ELEMENT_IS_NOT_SELECTABLE:
+            exception_class = ElementNotSelectableException
+        elif status in ErrorCode.ELEMENT_NOT_INTERACTABLE:
+            exception_class = ElementNotInteractableException
+        elif status in ErrorCode.INVALID_COOKIE_DOMAIN:
+            exception_class = InvalidCookieDomainException
+        elif status in ErrorCode.UNABLE_TO_SET_COOKIE:
+            exception_class = UnableToSetCookieException
+        elif status in ErrorCode.TIMEOUT:
+            exception_class = TimeoutException
+        elif status in ErrorCode.SCRIPT_TIMEOUT:
+            exception_class = TimeoutException
+        elif status in ErrorCode.UNKNOWN_ERROR:
+            exception_class = WebDriverException
+        elif status in ErrorCode.UNEXPECTED_ALERT_OPEN:
+            exception_class = UnexpectedAlertPresentException
+        elif status in ErrorCode.NO_ALERT_OPEN:
+            exception_class = NoAlertPresentException
+        elif status in ErrorCode.IME_NOT_AVAILABLE:
+            exception_class = ImeNotAvailableException
+        elif status in ErrorCode.IME_ENGINE_ACTIVATION_FAILED:
+            exception_class = ImeActivationFailedException
+        elif status in ErrorCode.MOVE_TARGET_OUT_OF_BOUNDS:
+            exception_class = MoveTargetOutOfBoundsException
+        elif status in ErrorCode.JAVASCRIPT_ERROR:
+            exception_class = JavascriptException
+        elif status in ErrorCode.SESSION_NOT_CREATED:
+            exception_class = SessionNotCreatedException
+        elif status in ErrorCode.INVALID_ARGUMENT:
+            exception_class = InvalidArgumentException
+        elif status in ErrorCode.NO_SUCH_COOKIE:
+            exception_class = NoSuchCookieException
+        elif status in ErrorCode.UNABLE_TO_CAPTURE_SCREEN:
+            exception_class = ScreenshotException
+        elif status in ErrorCode.ELEMENT_CLICK_INTERCEPTED:
+            exception_class = ElementClickInterceptedException
+        elif status in ErrorCode.INSECURE_CERTIFICATE:
+            exception_class = InsecureCertificateException
+        elif status in ErrorCode.INVALID_COORDINATES:
+            exception_class = InvalidCoordinatesException
+        elif status in ErrorCode.INVALID_SESSION_ID:
+            exception_class = InvalidSessionIdException
+        elif status in ErrorCode.UNKNOWN_METHOD:
+            exception_class = UnknownMethodException
+        else:
+            exception_class = WebDriverException
+        if not value:
+            value = response['value']
+        if isinstance(value, str):
+            raise exception_class(value)
+        if message == "" and 'message' in value:
+            message = value['message']
+    
+        screen = None  # type: ignore[assignment]
+        if 'screen' in value:
+            screen = value['screen']
+    
+        stacktrace = None
+        st_value = value.get('stackTrace') or value.get('stacktrace')
+        if st_value:
+            if isinstance(st_value, str):
+                stacktrace = st_value.split('\n')
+            else:
+                stacktrace = []
+                try:
+                    for frame in st_value:
+                        line = frame.get("lineNumber", "")
+                        file = frame.get("fileName", "&lt;anonymous&gt;")
+                        if line:
+                            file = f"{file}:{line}"
+                        meth = frame.get('methodName', '&lt;anonymous&gt;')
+                        if 'className' in frame:
+                            meth = "{}.{}".format(frame['className'], meth)
+                        msg = "    at %s (%s)"
+                        msg = msg % (meth, file)
+                        stacktrace.append(msg)
+                except TypeError:
+                    pass
+        if exception_class == UnexpectedAlertPresentException:
+            alert_text = None
+            if 'data' in value:
+                alert_text = value['data'].get('text')
+            elif 'alert' in value:
+                alert_text = value['alert'].get('text')
+            raise exception_class(message, screen, stacktrace, alert_text)  # type: ignore[call-arg]  # mypy is not smart enough here
+&gt;       raise exception_class(message, screen, stacktrace)
+E       selenium.common.exceptions.SessionNotCreatedException: Message: session not created: This version of Microsoft Edge WebDriver only supports Microsoft Edge version 105
+E       Current browser version is 107.0.1418.35 with binary path C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+E       Stacktrace:
+E       Backtrace:
+E       	Microsoft::Applications::Events::EventProperties::SetProperty [0x00007FF644D323D2+17554]
+E       	Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644CCED22+1438834]
+E       	Ordinal0 [0x00007FF6448F9345+627525]
+E       	Ordinal0 [0x00007FF6449273D4+816084]
+E       	Ordinal0 [0x00007FF6449228B3+796851]
+E       	Ordinal0 [0x00007FF64491D9F0+776688]
+E       	Ordinal0 [0x00007FF64495969F+1021599]
+E       	Ordinal0 [0x00007FF644953A43+997955]
+E       	Ordinal0 [0x00007FF6449294C0+824512]
+E       	Ordinal0 [0x00007FF64492A9F8+829944]
+E       	Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644B90578+134344]
+E       	Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644B79EA5+42485]
+E       	Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644B7CF8C+55004]
+E       	Ordinal0 [0x00007FF6449E2E94+1584788]
+E       	Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644CD446B+1461179]
+E       	Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644CD8434+1477508]
+E       	Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644CD858D+1477853]
+E       	Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644CE0559+1510569]
+E       	BaseThreadInitThunk [0x00007FF9E1CC7034+20]
+E       	RtlUserThreadStart [0x00007FF9E37826A1+33]
+
+C:\Python\Python310\lib\site-packages\selenium\webdriver\remote\errorhandler.py:243: SessionNotCreatedException</error></testcase><testcase classname="test_HomePage.TestHomePage" name="test_formSubmission[get_data1]" time="0.001"><error message="failed on setup with &quot;selenium.common.exceptions.SessionNotCreatedException: Message: session not created: This version of Microsoft Edge WebDriver only supports Microsoft Edge version 105&#10;Current browser version is 107.0.1418.35 with binary path C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe&#10;Stacktrace:&#10;Backtrace:&#10;&#09;Microsoft::Applications::Events::EventProperties::SetProperty [0x00007FF644D323D2+17554]&#10;&#09;Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644CCED22+1438834]&#10;&#09;Ordinal0 [0x00007FF6448F9345+627525]&#10;&#09;Ordinal0 [0x00007FF6449273D4+816084]&#10;&#09;Ordinal0 [0x00007FF6449228B3+796851]&#10;&#09;Ordinal0 [0x00007FF64491D9F0+776688]&#10;&#09;Ordinal0 [0x00007FF64495969F+1021599]&#10;&#09;Ordinal0 [0x00007FF644953A43+997955]&#10;&#09;Ordinal0 [0x00007FF6449294C0+824512]&#10;&#09;Ordinal0 [0x00007FF64492A9F8+829944]&#10;&#09;Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644B90578+134344]&#10;&#09;Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644B79EA5+42485]&#10;&#09;Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644B7CF8C+55004]&#10;&#09;Ordinal0 [0x00007FF6449E2E94+1584788]&#10;&#09;Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644CD446B+1461179]&#10;&#09;Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644CD8434+1477508]&#10;&#09;Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644CD858D+1477853]&#10;&#09;Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644CE0559+1510569]&#10;&#09;BaseThreadInitThunk [0x00007FF9E1CC7034+20]&#10;&#09;RtlUserThreadStart [0x00007FF9E37826A1+33]&quot;">request = &lt;SubRequest 'setup' for &lt;Function test_formSubmission[get_data0]&gt;&gt;
+
+    @pytest.fixture(scope="class")
+    def setup(request):
+        browser_name = request.config.getoption("browser_name")
+        if browser_name == "chrome":
+            service_obj = Service("D:\\Course\\Selenium\\Drivers\\chromedriver.exe")
+            chrome_options = webdriver.ChromeOptions()
+            chrome_options.add_argument("--start-maximized")
+            driver = webdriver.Chrome(service=service_obj, options=chrome_options)
+        elif browser_name == "firefox":
+            service_obj = Service("D:\\Course\\Selenium\\Drivers\\geckodriver.exe")
+            firefox_options = webdriver.FirefoxOptions()
+            firefox_options.add_argument("--start-maximized")
+            driver = webdriver.Firefox(service=service_obj, options=firefox_options)
+        elif browser_name == "IE":
+            service_obj = Service("D:\\Course\\Selenium\\Drivers\\msedgedriver.exe")
+            ie_options = webdriver.EdgeOptions()
+            ie_options.add_argument("--start-maximized")
+&gt;           driver = webdriver.Edge(service=service_obj, options=ie_options)
+
+conftest.py:31: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Python\Python310\lib\site-packages\selenium\webdriver\edge\webdriver.py:61: in __init__
+    super().__init__(DesiredCapabilities.EDGE['browserName'], "ms",
+C:\Python\Python310\lib\site-packages\selenium\webdriver\chromium\webdriver.py:92: in __init__
+    super().__init__(
+C:\Python\Python310\lib\site-packages\selenium\webdriver\remote\webdriver.py:272: in __init__
+    self.start_session(capabilities, browser_profile)
+C:\Python\Python310\lib\site-packages\selenium\webdriver\remote\webdriver.py:364: in start_session
+    response = self.execute(Command.NEW_SESSION, parameters)
+C:\Python\Python310\lib\site-packages\selenium\webdriver\remote\webdriver.py:429: in execute
+    self.error_handler.check_response(response)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;selenium.webdriver.remote.errorhandler.ErrorHandler object at 0x0000022E08B93610&gt;
+response = {'status': 500, 'value': '{"value":{"error":"session not created","message":"session not created: This version of Micr...E0559+1510569]\\n\\tBaseThreadInitThunk [0x00007FF9E1CC7034+20]\\n\\tRtlUserThreadStart [0x00007FF9E37826A1+33]\\n"}}'}
+
+    def check_response(self, response: Dict[str, Any]) -&gt; None:
+        """
+        Checks that a JSON response from the WebDriver does not have an error.
+    
+        :Args:
+         - response - The JSON response from the WebDriver server as a dictionary
+           object.
+    
+        :Raises: If the response contains an error message.
+        """
+        status = response.get('status', None)
+        if not status or status == ErrorCode.SUCCESS:
+            return
+        value = None
+        message = response.get("message", "")
+        screen: str = response.get("screen", "")
+        stacktrace = None
+        if isinstance(status, int):
+            value_json = response.get('value', None)
+            if value_json and isinstance(value_json, str):
+                import json
+                try:
+                    value = json.loads(value_json)
+                    if len(value.keys()) == 1:
+                        value = value['value']
+                    status = value.get('error', None)
+                    if not status:
+                        status = value.get("status", ErrorCode.UNKNOWN_ERROR)
+                        message = value.get("value") or value.get("message")
+                        if not isinstance(message, str):
+                            value = message
+                            message = message.get('message')
+                    else:
+                        message = value.get('message', None)
+                except ValueError:
+                    pass
+    
+        exception_class: Type[WebDriverException]
+        if status in ErrorCode.NO_SUCH_ELEMENT:
+            exception_class = NoSuchElementException
+        elif status in ErrorCode.NO_SUCH_FRAME:
+            exception_class = NoSuchFrameException
+        elif status in ErrorCode.NO_SUCH_SHADOW_ROOT:
+            exception_class = NoSuchShadowRootException
+        elif status in ErrorCode.NO_SUCH_WINDOW:
+            exception_class = NoSuchWindowException
+        elif status in ErrorCode.STALE_ELEMENT_REFERENCE:
+            exception_class = StaleElementReferenceException
+        elif status in ErrorCode.ELEMENT_NOT_VISIBLE:
+            exception_class = ElementNotVisibleException
+        elif status in ErrorCode.INVALID_ELEMENT_STATE:
+            exception_class = InvalidElementStateException
+        elif status in ErrorCode.INVALID_SELECTOR \
+                or status in ErrorCode.INVALID_XPATH_SELECTOR \
+                or status in ErrorCode.INVALID_XPATH_SELECTOR_RETURN_TYPER:
+            exception_class = InvalidSelectorException
+        elif status in ErrorCode.ELEMENT_IS_NOT_SELECTABLE:
+            exception_class = ElementNotSelectableException
+        elif status in ErrorCode.ELEMENT_NOT_INTERACTABLE:
+            exception_class = ElementNotInteractableException
+        elif status in ErrorCode.INVALID_COOKIE_DOMAIN:
+            exception_class = InvalidCookieDomainException
+        elif status in ErrorCode.UNABLE_TO_SET_COOKIE:
+            exception_class = UnableToSetCookieException
+        elif status in ErrorCode.TIMEOUT:
+            exception_class = TimeoutException
+        elif status in ErrorCode.SCRIPT_TIMEOUT:
+            exception_class = TimeoutException
+        elif status in ErrorCode.UNKNOWN_ERROR:
+            exception_class = WebDriverException
+        elif status in ErrorCode.UNEXPECTED_ALERT_OPEN:
+            exception_class = UnexpectedAlertPresentException
+        elif status in ErrorCode.NO_ALERT_OPEN:
+            exception_class = NoAlertPresentException
+        elif status in ErrorCode.IME_NOT_AVAILABLE:
+            exception_class = ImeNotAvailableException
+        elif status in ErrorCode.IME_ENGINE_ACTIVATION_FAILED:
+            exception_class = ImeActivationFailedException
+        elif status in ErrorCode.MOVE_TARGET_OUT_OF_BOUNDS:
+            exception_class = MoveTargetOutOfBoundsException
+        elif status in ErrorCode.JAVASCRIPT_ERROR:
+            exception_class = JavascriptException
+        elif status in ErrorCode.SESSION_NOT_CREATED:
+            exception_class = SessionNotCreatedException
+        elif status in ErrorCode.INVALID_ARGUMENT:
+            exception_class = InvalidArgumentException
+        elif status in ErrorCode.NO_SUCH_COOKIE:
+            exception_class = NoSuchCookieException
+        elif status in ErrorCode.UNABLE_TO_CAPTURE_SCREEN:
+            exception_class = ScreenshotException
+        elif status in ErrorCode.ELEMENT_CLICK_INTERCEPTED:
+            exception_class = ElementClickInterceptedException
+        elif status in ErrorCode.INSECURE_CERTIFICATE:
+            exception_class = InsecureCertificateException
+        elif status in ErrorCode.INVALID_COORDINATES:
+            exception_class = InvalidCoordinatesException
+        elif status in ErrorCode.INVALID_SESSION_ID:
+            exception_class = InvalidSessionIdException
+        elif status in ErrorCode.UNKNOWN_METHOD:
+            exception_class = UnknownMethodException
+        else:
+            exception_class = WebDriverException
+        if not value:
+            value = response['value']
+        if isinstance(value, str):
+            raise exception_class(value)
+        if message == "" and 'message' in value:
+            message = value['message']
+    
+        screen = None  # type: ignore[assignment]
+        if 'screen' in value:
+            screen = value['screen']
+    
+        stacktrace = None
+        st_value = value.get('stackTrace') or value.get('stacktrace')
+        if st_value:
+            if isinstance(st_value, str):
+                stacktrace = st_value.split('\n')
+            else:
+                stacktrace = []
+                try:
+                    for frame in st_value:
+                        line = frame.get("lineNumber", "")
+                        file = frame.get("fileName", "&lt;anonymous&gt;")
+                        if line:
+                            file = f"{file}:{line}"
+                        meth = frame.get('methodName', '&lt;anonymous&gt;')
+                        if 'className' in frame:
+                            meth = "{}.{}".format(frame['className'], meth)
+                        msg = "    at %s (%s)"
+                        msg = msg % (meth, file)
+                        stacktrace.append(msg)
+                except TypeError:
+                    pass
+        if exception_class == UnexpectedAlertPresentException:
+            alert_text = None
+            if 'data' in value:
+                alert_text = value['data'].get('text')
+            elif 'alert' in value:
+                alert_text = value['alert'].get('text')
+            raise exception_class(message, screen, stacktrace, alert_text)  # type: ignore[call-arg]  # mypy is not smart enough here
+&gt;       raise exception_class(message, screen, stacktrace)
+E       selenium.common.exceptions.SessionNotCreatedException: Message: session not created: This version of Microsoft Edge WebDriver only supports Microsoft Edge version 105
+E       Current browser version is 107.0.1418.35 with binary path C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+E       Stacktrace:
+E       Backtrace:
+E       	Microsoft::Applications::Events::EventProperties::SetProperty [0x00007FF644D323D2+17554]
+E       	Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644CCED22+1438834]
+E       	Ordinal0 [0x00007FF6448F9345+627525]
+E       	Ordinal0 [0x00007FF6449273D4+816084]
+E       	Ordinal0 [0x00007FF6449228B3+796851]
+E       	Ordinal0 [0x00007FF64491D9F0+776688]
+E       	Ordinal0 [0x00007FF64495969F+1021599]
+E       	Ordinal0 [0x00007FF644953A43+997955]
+E       	Ordinal0 [0x00007FF6449294C0+824512]
+E       	Ordinal0 [0x00007FF64492A9F8+829944]
+E       	Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644B90578+134344]
+E       	Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644B79EA5+42485]
+E       	Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644B7CF8C+55004]
+E       	Ordinal0 [0x00007FF6449E2E94+1584788]
+E       	Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644CD446B+1461179]
+E       	Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644CD8434+1477508]
+E       	Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644CD858D+1477853]
+E       	Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644CE0559+1510569]
+E       	BaseThreadInitThunk [0x00007FF9E1CC7034+20]
+E       	RtlUserThreadStart [0x00007FF9E37826A1+33]
+
+C:\Python\Python310\lib\site-packages\selenium\webdriver\remote\errorhandler.py:243: SessionNotCreatedException</error></testcase><testcase classname="test_e2e.TestOne" name="test_e2e" time="3.152"><error message="failed on setup with &quot;selenium.common.exceptions.SessionNotCreatedException: Message: session not created: This version of Microsoft Edge WebDriver only supports Microsoft Edge version 105&#10;Current browser version is 107.0.1418.35 with binary path C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe&#10;Stacktrace:&#10;Backtrace:&#10;&#09;Microsoft::Applications::Events::EventProperties::SetProperty [0x00007FF644D323D2+17554]&#10;&#09;Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644CCED22+1438834]&#10;&#09;Ordinal0 [0x00007FF6448F9345+627525]&#10;&#09;Ordinal0 [0x00007FF6449273D4+816084]&#10;&#09;Ordinal0 [0x00007FF6449228B3+796851]&#10;&#09;Ordinal0 [0x00007FF64491D9F0+776688]&#10;&#09;Ordinal0 [0x00007FF64495969F+1021599]&#10;&#09;Ordinal0 [0x00007FF644953A43+997955]&#10;&#09;Ordinal0 [0x00007FF6449294C0+824512]&#10;&#09;Ordinal0 [0x00007FF64492A9F8+829944]&#10;&#09;Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644B90578+134344]&#10;&#09;Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644B79EA5+42485]&#10;&#09;Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644B7CF8C+55004]&#10;&#09;Ordinal0 [0x00007FF6449E2E94+1584788]&#10;&#09;Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644CD446B+1461179]&#10;&#09;Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644CD8434+1477508]&#10;&#09;Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644CD858D+1477853]&#10;&#09;Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644CE0559+1510569]&#10;&#09;BaseThreadInitThunk [0x00007FF9E1CC7034+20]&#10;&#09;RtlUserThreadStart [0x00007FF9E37826A1+33]&quot;">request = &lt;SubRequest 'setup' for &lt;Function test_e2e&gt;&gt;
+
+    @pytest.fixture(scope="class")
+    def setup(request):
+        browser_name = request.config.getoption("browser_name")
+        if browser_name == "chrome":
+            service_obj = Service("D:\\Course\\Selenium\\Drivers\\chromedriver.exe")
+            chrome_options = webdriver.ChromeOptions()
+            chrome_options.add_argument("--start-maximized")
+            driver = webdriver.Chrome(service=service_obj, options=chrome_options)
+        elif browser_name == "firefox":
+            service_obj = Service("D:\\Course\\Selenium\\Drivers\\geckodriver.exe")
+            firefox_options = webdriver.FirefoxOptions()
+            firefox_options.add_argument("--start-maximized")
+            driver = webdriver.Firefox(service=service_obj, options=firefox_options)
+        elif browser_name == "IE":
+            service_obj = Service("D:\\Course\\Selenium\\Drivers\\msedgedriver.exe")
+            ie_options = webdriver.EdgeOptions()
+            ie_options.add_argument("--start-maximized")
+&gt;           driver = webdriver.Edge(service=service_obj, options=ie_options)
+
+conftest.py:31: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Python\Python310\lib\site-packages\selenium\webdriver\edge\webdriver.py:61: in __init__
+    super().__init__(DesiredCapabilities.EDGE['browserName'], "ms",
+C:\Python\Python310\lib\site-packages\selenium\webdriver\chromium\webdriver.py:92: in __init__
+    super().__init__(
+C:\Python\Python310\lib\site-packages\selenium\webdriver\remote\webdriver.py:272: in __init__
+    self.start_session(capabilities, browser_profile)
+C:\Python\Python310\lib\site-packages\selenium\webdriver\remote\webdriver.py:364: in start_session
+    response = self.execute(Command.NEW_SESSION, parameters)
+C:\Python\Python310\lib\site-packages\selenium\webdriver\remote\webdriver.py:429: in execute
+    self.error_handler.check_response(response)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;selenium.webdriver.remote.errorhandler.ErrorHandler object at 0x0000022E08CA47C0&gt;
+response = {'status': 500, 'value': '{"value":{"error":"session not created","message":"session not created: This version of Micr...E0559+1510569]\\n\\tBaseThreadInitThunk [0x00007FF9E1CC7034+20]\\n\\tRtlUserThreadStart [0x00007FF9E37826A1+33]\\n"}}'}
+
+    def check_response(self, response: Dict[str, Any]) -&gt; None:
+        """
+        Checks that a JSON response from the WebDriver does not have an error.
+    
+        :Args:
+         - response - The JSON response from the WebDriver server as a dictionary
+           object.
+    
+        :Raises: If the response contains an error message.
+        """
+        status = response.get('status', None)
+        if not status or status == ErrorCode.SUCCESS:
+            return
+        value = None
+        message = response.get("message", "")
+        screen: str = response.get("screen", "")
+        stacktrace = None
+        if isinstance(status, int):
+            value_json = response.get('value', None)
+            if value_json and isinstance(value_json, str):
+                import json
+                try:
+                    value = json.loads(value_json)
+                    if len(value.keys()) == 1:
+                        value = value['value']
+                    status = value.get('error', None)
+                    if not status:
+                        status = value.get("status", ErrorCode.UNKNOWN_ERROR)
+                        message = value.get("value") or value.get("message")
+                        if not isinstance(message, str):
+                            value = message
+                            message = message.get('message')
+                    else:
+                        message = value.get('message', None)
+                except ValueError:
+                    pass
+    
+        exception_class: Type[WebDriverException]
+        if status in ErrorCode.NO_SUCH_ELEMENT:
+            exception_class = NoSuchElementException
+        elif status in ErrorCode.NO_SUCH_FRAME:
+            exception_class = NoSuchFrameException
+        elif status in ErrorCode.NO_SUCH_SHADOW_ROOT:
+            exception_class = NoSuchShadowRootException
+        elif status in ErrorCode.NO_SUCH_WINDOW:
+            exception_class = NoSuchWindowException
+        elif status in ErrorCode.STALE_ELEMENT_REFERENCE:
+            exception_class = StaleElementReferenceException
+        elif status in ErrorCode.ELEMENT_NOT_VISIBLE:
+            exception_class = ElementNotVisibleException
+        elif status in ErrorCode.INVALID_ELEMENT_STATE:
+            exception_class = InvalidElementStateException
+        elif status in ErrorCode.INVALID_SELECTOR \
+                or status in ErrorCode.INVALID_XPATH_SELECTOR \
+                or status in ErrorCode.INVALID_XPATH_SELECTOR_RETURN_TYPER:
+            exception_class = InvalidSelectorException
+        elif status in ErrorCode.ELEMENT_IS_NOT_SELECTABLE:
+            exception_class = ElementNotSelectableException
+        elif status in ErrorCode.ELEMENT_NOT_INTERACTABLE:
+            exception_class = ElementNotInteractableException
+        elif status in ErrorCode.INVALID_COOKIE_DOMAIN:
+            exception_class = InvalidCookieDomainException
+        elif status in ErrorCode.UNABLE_TO_SET_COOKIE:
+            exception_class = UnableToSetCookieException
+        elif status in ErrorCode.TIMEOUT:
+            exception_class = TimeoutException
+        elif status in ErrorCode.SCRIPT_TIMEOUT:
+            exception_class = TimeoutException
+        elif status in ErrorCode.UNKNOWN_ERROR:
+            exception_class = WebDriverException
+        elif status in ErrorCode.UNEXPECTED_ALERT_OPEN:
+            exception_class = UnexpectedAlertPresentException
+        elif status in ErrorCode.NO_ALERT_OPEN:
+            exception_class = NoAlertPresentException
+        elif status in ErrorCode.IME_NOT_AVAILABLE:
+            exception_class = ImeNotAvailableException
+        elif status in ErrorCode.IME_ENGINE_ACTIVATION_FAILED:
+            exception_class = ImeActivationFailedException
+        elif status in ErrorCode.MOVE_TARGET_OUT_OF_BOUNDS:
+            exception_class = MoveTargetOutOfBoundsException
+        elif status in ErrorCode.JAVASCRIPT_ERROR:
+            exception_class = JavascriptException
+        elif status in ErrorCode.SESSION_NOT_CREATED:
+            exception_class = SessionNotCreatedException
+        elif status in ErrorCode.INVALID_ARGUMENT:
+            exception_class = InvalidArgumentException
+        elif status in ErrorCode.NO_SUCH_COOKIE:
+            exception_class = NoSuchCookieException
+        elif status in ErrorCode.UNABLE_TO_CAPTURE_SCREEN:
+            exception_class = ScreenshotException
+        elif status in ErrorCode.ELEMENT_CLICK_INTERCEPTED:
+            exception_class = ElementClickInterceptedException
+        elif status in ErrorCode.INSECURE_CERTIFICATE:
+            exception_class = InsecureCertificateException
+        elif status in ErrorCode.INVALID_COORDINATES:
+            exception_class = InvalidCoordinatesException
+        elif status in ErrorCode.INVALID_SESSION_ID:
+            exception_class = InvalidSessionIdException
+        elif status in ErrorCode.UNKNOWN_METHOD:
+            exception_class = UnknownMethodException
+        else:
+            exception_class = WebDriverException
+        if not value:
+            value = response['value']
+        if isinstance(value, str):
+            raise exception_class(value)
+        if message == "" and 'message' in value:
+            message = value['message']
+    
+        screen = None  # type: ignore[assignment]
+        if 'screen' in value:
+            screen = value['screen']
+    
+        stacktrace = None
+        st_value = value.get('stackTrace') or value.get('stacktrace')
+        if st_value:
+            if isinstance(st_value, str):
+                stacktrace = st_value.split('\n')
+            else:
+                stacktrace = []
+                try:
+                    for frame in st_value:
+                        line = frame.get("lineNumber", "")
+                        file = frame.get("fileName", "&lt;anonymous&gt;")
+                        if line:
+                            file = f"{file}:{line}"
+                        meth = frame.get('methodName', '&lt;anonymous&gt;')
+                        if 'className' in frame:
+                            meth = "{}.{}".format(frame['className'], meth)
+                        msg = "    at %s (%s)"
+                        msg = msg % (meth, file)
+                        stacktrace.append(msg)
+                except TypeError:
+                    pass
+        if exception_class == UnexpectedAlertPresentException:
+            alert_text = None
+            if 'data' in value:
+                alert_text = value['data'].get('text')
+            elif 'alert' in value:
+                alert_text = value['alert'].get('text')
+            raise exception_class(message, screen, stacktrace, alert_text)  # type: ignore[call-arg]  # mypy is not smart enough here
+&gt;       raise exception_class(message, screen, stacktrace)
+E       selenium.common.exceptions.SessionNotCreatedException: Message: session not created: This version of Microsoft Edge WebDriver only supports Microsoft Edge version 105
+E       Current browser version is 107.0.1418.35 with binary path C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+E       Stacktrace:
+E       Backtrace:
+E       	Microsoft::Applications::Events::EventProperties::SetProperty [0x00007FF644D323D2+17554]
+E       	Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644CCED22+1438834]
+E       	Ordinal0 [0x00007FF6448F9345+627525]
+E       	Ordinal0 [0x00007FF6449273D4+816084]
+E       	Ordinal0 [0x00007FF6449228B3+796851]
+E       	Ordinal0 [0x00007FF64491D9F0+776688]
+E       	Ordinal0 [0x00007FF64495969F+1021599]
+E       	Ordinal0 [0x00007FF644953A43+997955]
+E       	Ordinal0 [0x00007FF6449294C0+824512]
+E       	Ordinal0 [0x00007FF64492A9F8+829944]
+E       	Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644B90578+134344]
+E       	Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644B79EA5+42485]
+E       	Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644B7CF8C+55004]
+E       	Ordinal0 [0x00007FF6449E2E94+1584788]
+E       	Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644CD446B+1461179]
+E       	Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644CD8434+1477508]
+E       	Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644CD858D+1477853]
+E       	Microsoft::Applications::Events::EventProperty::EventProperty [0x00007FF644CE0559+1510569]
+E       	BaseThreadInitThunk [0x00007FF9E1CC7034+20]
+E       	RtlUserThreadStart [0x00007FF9E37826A1+33]
+
+C:\Python\Python310\lib\site-packages\selenium\webdriver\remote\errorhandler.py:243: SessionNotCreatedException</error></testcase></testsuite></testsuites>

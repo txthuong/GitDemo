@@ -1,0 +1,29 @@
+2022-11-08 06:47:53,466 : INFO: test_e2e: Getting all the card titles.
+2022-11-08 06:47:53,499 : INFO: test_e2e: iphone X
+2022-11-08 06:47:53,538 : INFO: test_e2e: iphone X added !!!
+2022-11-08 06:47:53,556 : INFO: test_e2e: Samsung Note 8
+2022-11-08 06:47:53,577 : INFO: test_e2e: Nokia Edge
+2022-11-08 06:47:53,601 : INFO: test_e2e: Blackberry
+2022-11-08 06:47:53,634 : INFO: test_e2e: Blackberry added !!!
+2022-11-08 06:47:53,724 : INFO: test_e2e: Enter country name.
+2022-11-08 06:47:59,032 : INFO: test_e2e: Text received: ×
+Success! Thank you! Your order will be delivered in next few weeks :-).
+2022-11-08 06:53:07,808 : INFO: test_formSubmission: Running with name:Truong
+2022-11-08 06:53:08,107 : INFO: test_formSubmission: ×
+Success! The Form has been submitted successfully!.
+2022-11-08 06:53:08,424 : INFO: test_formSubmission: Running with name:Thuong
+2022-11-08 06:53:08,424 : INFO: test_formSubmission: Running with name:Thuong
+2022-11-08 06:53:08,727 : INFO: test_formSubmission: ×
+Success! The Form has been submitted successfully!.
+2022-11-08 06:53:08,727 : INFO: test_formSubmission: ×
+Success! The Form has been submitted successfully!.
+2022-11-08 06:53:32,214 : INFO: test_e2e: Getting all the card titles.
+2022-11-08 06:53:32,256 : INFO: test_e2e: iphone X
+2022-11-08 06:53:32,302 : INFO: test_e2e: iphone X added !!!
+2022-11-08 06:53:32,327 : INFO: test_e2e: Samsung Note 8
+2022-11-08 06:53:32,347 : INFO: test_e2e: Nokia Edge
+2022-11-08 06:53:32,370 : INFO: test_e2e: Blackberry
+2022-11-08 06:53:32,404 : INFO: test_e2e: Blackberry added !!!
+2022-11-08 06:53:32,486 : INFO: test_e2e: Enter country name.
+2022-11-08 06:53:37,732 : INFO: test_e2e: Text received: ×
+Success! Thank you! Your order will be delivered in next few weeks :-).
