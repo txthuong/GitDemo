@@ -18,6 +18,7 @@ class HomePageData:
                     dict_test_data[sheet.cell(row=1, column=j).value] = sheet.cell(row=i, column=j).value
         
         print "Git test 1"
+        print "Git test 1 2nd"
 
         return [dict_test_data]
 
